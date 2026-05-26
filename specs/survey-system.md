@@ -42,20 +42,19 @@ Dependencias:
 
 ---
 
-### HU-02: Visualización de estadísticas
-**Como** organizador,
-**quiero** visualizar estadísticas de satisfacción,
-**para** evaluar la calidad del evento.
+### HU 2: Inscripción Express a Eventos Académicos
+**Como** Participante del evento  
+**Quiero** Registrar mis datos en el formulario web  
+**Para** Asegurar mi cupo y recibir el código QR de acreditación.
 
-#### Criterios de Aceptación
-- El sistema debe mostrar:
-  - Promedio de satisfacción.
-  - Cantidad de respuestas.
-  - Preguntas mejor valoradas.
-  - Preguntas peor valoradas.
-- Los gráficos deben actualizarse en tiempo real.
+#### Criterios de Aceptación Originales:
+* El sistema debe validar que el DNI no esté duplicado.
+* El sistema debe restar 1 al cupo disponible.
 
----
+#### [ENRIQUECIMIENTO TP4] Criterios de Aceptación de Seguridad (Controles OWASP):
+1. **Mitigación de Inyección SQL (OWASP A03:2021):** El backend de Django Rest Framework deberá procesar la consulta utilizando exclusivamente el ORM parametrizado. Queda estrictamente prohibido el uso de strings crudos (`RawSQL`).
+2. **Defensa de Concurrencia y Control de Flujo:** Para evitar la explotación de condiciones de carrera al agotar cupos, la verificación del remanente debe usar un bloqueo pesimista en base de datos (`select_for_update()`).
+3. **Validación de Entradas Estricta (OWASP A04:2021):** El campo `Email` y `DNI` deben ser sanitizados tanto en el cliente (Next.js) como en los Serializers del servidor, rechazando caracteres especiales sospechosos (`<`, `>`, `'`, `--`) para prevenir vectores de ataque XSS e inyecciones.
 
 ### HU-03: Configuración de encuestas
 **Como** organizador,
