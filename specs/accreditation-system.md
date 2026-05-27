@@ -7,6 +7,10 @@ Este módulo permite registrar la asistencia efectiva de los participantes el d�
 * **HU-01: Acreditación por Organizador**
     * **Como** organizador, **quiero** marcar a un participante como "Presente" **para** llevar el control de asistencia.
     * **Criterio de Aceptación:** El sistema debe permitir buscar al usuario por DNI o Email y cambiar su estado de inscripción a "ACCREDITED".
+    #### [ENRIQUECIMIENTO TP4] Criterios de Aceptación de Seguridad (Controles OWASP)
+1. **Mitigación de Inyección SQL y Robustez del ORM (OWASP A03:2021-Injection):** El backend desarrollado en Django Rest Framework deberá procesar todas las consultas de búsqueda de DNI e ID de eventos utilizando exclusivamente consultas parametrizadas mediante el ORM nativo. Queda estrictamente prohibido el uso de strings crudos o concatenados (`RawSQL`) en las funciones de verificación.
+2. **Control de Acceso a Nivel de Objeto - BOLA (OWASP A01:2021-Broken Access Control):** Los endpoints de la API destinados a cambiar estados de acreditación o emitir credenciales deben validar de manera mandatoria que el token JWT pertenezca a un usuario con rol `ORGANIZADOR` o `RECEPCIONISTA`. Se debe rechazar cualquier intento de modificación proveniente de un rol `PARTICIPANTE`.
+3. **Protección de Datos Sensibles y Cifrado (OWASP A02:2021-Cryptographic Failures):** Toda transmisión de información sensible (como DNI, correo electrónico y hashes de sesión) entre el frontend de Next.js y la API en Django Rest Framework debe ser obligatoriamente forzada bajo protocolo HTTPS/TLS. Las contraseñas en PostgreSQL se resguardarán mediante hashing robusto (PBKDF2 nativo o Argon2).
 * **HU-02: Consulta de Asistencia**
     * **Como** participante, **quiero** ver si ya fui acreditado **para** confirmar que recibiré mi certificado.
 
