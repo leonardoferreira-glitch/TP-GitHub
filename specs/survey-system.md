@@ -42,7 +42,7 @@ Dependencias:
 
 ---
 
-### HU 2: Inscripción Express a Eventos Académicos
+### HU-02: Inscripción Express a Eventos Académicos
 **Como** Participante del evento  
 **Quiero** Registrar mis datos en el formulario web  
 **Para** Asegurar mi cupo y recibir el código QR de acreditación.
